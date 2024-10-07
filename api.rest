@@ -1,0 +1,6 @@
+// GET HOME PAGE DATA
+GET http://localhost:1338/api/home-page?populate[blocks][on][layout.hero-section][populate][image][fields][0]=url&populate[blocks][on][layout.hero-section][populate][image][fields][1]=alternativeText&populate[blocks][on][layout.hero-section][populate][link][populate]=true
+
+###
+
+GET http://localhost:1338/api/home-page?populate[blocks][on][layout.hero-section][populate][image][populate]=true&populate[blocks][on][layout.hero-section][populate][link][populate]=true
