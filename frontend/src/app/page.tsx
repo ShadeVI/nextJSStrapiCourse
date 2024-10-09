@@ -1,46 +1,63 @@
-const { NEXT_BACKEND_BASE_URL } = process.env;
+import { FeatureSection } from "@/components/custom/features-section";
 import { HeroSection } from "@/components/custom/hero-section";
-import qs from "qs";
+import { getHomePageData } from "@/data/loaders";
 
-const homePageQueryParams = {
-  populate: {
-    blocks: {
-      on: {
-        "layout.hero-section": {
-          populate: {
-            image: {
-              fields: ["url", "alternativeText", "width", "height"],
-            },
-            link: {
-              populate: true,
-            },
-          },
-        },
-      },
-    },
-  },
+const blockComponents = {
+  "layout.hero-section": HeroSection,
+  "layout.features-section": FeatureSection,
 };
 
-async function getStrapiData(path: string) {
-  const url = new URL(path, NEXT_BACKEND_BASE_URL);
-  url.search = qs.stringify(homePageQueryParams);
-  try {
-    const res = await fetch(url.href, { cache: "no-store" });
-    const data = await res.json();
-    console.dir(data, { depth: null });
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+/* export interface BlockHeroSection {
+  __component: string;
+  id: number;
+  heading: string;
+  subHeading: string;
+  image: Image;
+  link: Link;
+}
+
+export interface Image {
+  id: number;
+  documentId: string;
+  url: string;
+  alternativeText: string;
+  width: number;
+  height: number;
+}
+
+export interface Link {
+  id: number;
+  url: string;
+  text: string;
+  isExternal: boolean;
+}
+
+export interface BlockFeatureSection {
+  __component: string;
+  id: number;
+  title: string;
+  description: string;
+  features: Feature[];
+}
+
+export interface Feature {
+  id: number;
+  heading: string;
+  subHeading: string;
+  icon: string;
+}
+
+type Block = BlockFeatureSection | BlockHeroSection; */
+
+function blockRenderer(block: any) {
+  const Component =
+    blockComponents[block.__component as keyof typeof blockComponents];
+  return Component ? <Component key={block.id} data={block} /> : null;
 }
 
 export default async function Home() {
-  const strapiData = await getStrapiData("/api/home-page");
-  const { blocks } = strapiData.data;
+  const strapiData = await getHomePageData();
+  const { blocks } = strapiData?.data || [];
 
-  return (
-    <main>
-      <HeroSection data={blocks[0]} />
-    </main>
-  );
+  return <main>{blocks.map(blockRenderer)}</main>;
 }

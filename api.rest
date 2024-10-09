@@ -1,6 +1,11 @@
 // GET HOME PAGE DATA
-GET http://localhost:1338/api/home-page?populate[blocks][on][layout.hero-section][populate][image][fields][0]=url&populate[blocks][on][layout.hero-section][populate][image][fields][1]=alternativeText&populate[blocks][on][layout.hero-section][populate][link][populate]=true
+GET http://localhost:1338/api/home-page?populate[blocks][on][layout.hero-section][populate][image][fields][0]=url&populate[blocks][on][layout.hero-section][populate][image][fields][1]=alternativeText&populate[blocks][on][layout.hero-section][populate][image][fields][2]=width&populate[blocks][on][layout.hero-section][populate][image][fields][3]=height&populate[blocks][on][layout.hero-section][populate][link][populate]=true&populate[blocks][on][layout.features-section][populate][feature][populate]=true
 
 ###
 
 GET http://localhost:1338/api/home-page?populate[blocks][on][layout.hero-section][populate][image][populate]=true&populate[blocks][on][layout.hero-section][populate][link][populate]=true
+
+
+###
+// GLOBALS
+GET http://localhost:1338/api/global?populate[0]=header.logoText&populate[1]=header.ctaButton&populate[2]=footer.logoText&populate[3]=footer.socialLinks
