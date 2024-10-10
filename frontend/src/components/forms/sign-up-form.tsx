@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { registerUserAction } from "@/data/actions/auth-action";
+import { useFormState } from "react-dom";
 
 import {
   CardTitle,
@@ -10,14 +12,38 @@ import {
   CardFooter,
   Card,
 } from "@/components/ui/card";
+import { ZodError } from "@/components/custom/zod-error";
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
+export interface FormState {
+  data: string | null;
+  zodErrors: {
+    username?: string[] | undefined;
+    email?: string[] | undefined;
+    password?: string[] | undefined;
+  } | null;
+  errorMessage: string | null;
+}
+
+const INITIAL_FORM_STATE: FormState = {
+  data: null,
+  zodErrors: null,
+  errorMessage: null,
+};
+
 export function SignupForm() {
+  const [formState, formAction] = useFormState(
+    registerUserAction,
+    INITIAL_FORM_STATE
+  );
+
+  console.log(formState);
+
   return (
     <div className="w-full max-w-md">
-      <form>
+      <form action={formAction}>
         <Card>
           <CardHeader className="space-y-1">
             <CardTitle className="text-3xl font-bold">Sign Up</CardTitle>
@@ -34,6 +60,7 @@ export function SignupForm() {
                 type="text"
                 placeholder="username"
               />
+              <ZodError error={formState.zodErrors?.username} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -43,8 +70,8 @@ export function SignupForm() {
                 type="email"
                 placeholder="name@example.com"
               />
+              <ZodError error={formState.zodErrors?.email} />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
@@ -53,6 +80,7 @@ export function SignupForm() {
                 type="password"
                 placeholder="password"
               />
+              <ZodError error={formState.zodErrors?.password} />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
