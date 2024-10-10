@@ -34,6 +34,7 @@ export async function getGlobalMetadata() {
 }
 
 export async function getHomePageData() {
+  noStore()
   const url = new URL("/api/home-page", baseUrl);
   const homePageQueryParams = {
     populate: {
