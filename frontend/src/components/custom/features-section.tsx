@@ -36,7 +36,7 @@ export function FeatureSection({
   readonly data: FeatureSectionProps;
 }) {
   const { features } = data;
-  console.dir(features, { depth: null });
+  //console.dir(features, { depth: null });
   return (
     <div className="">
       <div className="flex-1">
