@@ -2,6 +2,7 @@
 
 import { FormState } from "@/components/forms/sign-up-form"
 import { z } from "zod"
+import { registerUserService } from "../services/auth-service"
 
 const schemaRegister = z.object({
   username: z.string().min(3).max(20, {
@@ -29,14 +30,40 @@ export async function registerUserAction(prev: any, formData: FormData): Promise
       ...prev,
       data: null,
       zodErrors: validatedFields.error.flatten().fieldErrors,
+      strapiErrors: null,
       errorMessage: "Error fields"
     }
   }
+
+  const responseData = await registerUserService(validatedFields.data);
+
+  if (!responseData) {
+    return {
+      ...prev,
+      strapiErrors: null,
+      zodErrors: null,
+      message: "Ops! Something went wrong. Please try again.",
+    };
+  }
+
+  if (responseData.error) {
+    return {
+      ...prev,
+      strapiErrors: responseData.error,
+      zodErrors: null,
+      message: "Failed to Register.",
+    };
+  }
+
+  console.log("#############");
+  console.log("User Registered Successfully", responseData.jwt);
+  console.log("#############");
 
   return {
     ...prev,
     data: "ok",
     zodErrors: null,
+    strapiErrors: null,
     errorMessage: null,
   }
 }

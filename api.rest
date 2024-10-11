@@ -9,3 +9,14 @@ GET http://localhost:1338/api/home-page?populate[blocks][on][layout.hero-section
 ###
 // GLOBALS
 GET http://localhost:1338/api/global?populate[0]=header.logoText&populate[1]=header.ctaButton&populate[2]=footer.logoText&populate[3]=footer.socialLinks
+
+###
+// Restaurant
+POST http://localhost:1338/api/restaurants HTTP/1.1
+content-type: application/json
+
+{
+  "data": {
+    "name": "hello r"
+  }
+}

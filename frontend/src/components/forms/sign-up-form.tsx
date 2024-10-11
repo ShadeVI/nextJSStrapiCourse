@@ -16,6 +16,7 @@ import { ZodError } from "@/components/custom/zod-error";
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { StrapiErrors } from "../custom/strapi-errors";
 
 export interface FormState {
   data: string | null;
@@ -24,12 +25,18 @@ export interface FormState {
     email?: string[] | undefined;
     password?: string[] | undefined;
   } | null;
+  strapiErrors: {
+    message: string | null;
+    name: string;
+    status: string | null;
+  } | null;
   errorMessage: string | null;
 }
 
 const INITIAL_FORM_STATE: FormState = {
   data: null,
   zodErrors: null,
+  strapiErrors: null,
   errorMessage: null,
 };
 
@@ -85,6 +92,7 @@ export function SignupForm() {
           </CardContent>
           <CardFooter className="flex flex-col">
             <button className="w-full">Sign Up</button>
+            <StrapiErrors error={formState?.strapiErrors} />
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">
