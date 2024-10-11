@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { StrapiImage } from "./strapi-image";
+import { StrapiImage } from "./StrapiImage";
 
 interface ImgHero {
   id: number;

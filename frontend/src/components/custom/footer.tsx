@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Logo } from "@/components/custom/logo";
+import { Logo } from "@/components/custom/Logo";
 
 interface SocialLink {
   id: number;

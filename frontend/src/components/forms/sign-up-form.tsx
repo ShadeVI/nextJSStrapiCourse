@@ -12,12 +12,12 @@ import {
   CardFooter,
   Card,
 } from "@/components/ui/card";
-import { ZodError } from "@/components/custom/zod-error";
+import { ZodError } from "@/components/custom/ZodError";
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { StrapiErrors } from "../custom/strapi-errors";
-import { SubmitButton } from "../custom/submit-button";
+import { StrapiErrors } from "@/components/custom/StrapiErrors";
+import { SubmitButton } from "@/components/custom/SubmitButton";
 
 export interface FormState {
   data: string | null;

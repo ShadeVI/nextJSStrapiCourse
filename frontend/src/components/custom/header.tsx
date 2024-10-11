@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/custom/logo";
+import { Logo } from "@/components/custom/Logo";
 
 interface HeaderProps {
   data: {

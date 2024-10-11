@@ -1,5 +1,5 @@
-import { FeatureSection } from "@/components/custom/features-section";
-import { HeroSection } from "@/components/custom/hero-section";
+import { FeatureSection } from "@/components/custom/FeaturesSection";
+import { HeroSection } from "@/components/custom/HeroSection";
 import { getHomePageData } from "@/data/loaders";
 
 const blockComponents = {
