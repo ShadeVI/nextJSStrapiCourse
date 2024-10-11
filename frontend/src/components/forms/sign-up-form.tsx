@@ -17,6 +17,7 @@ import { ZodError } from "@/components/custom/zod-error";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { StrapiErrors } from "../custom/strapi-errors";
+import { SubmitButton } from "../custom/submit-button";
 
 export interface FormState {
   data: string | null;
@@ -91,7 +92,11 @@ export function SignupForm() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <button className="w-full">Sign Up</button>
+            <SubmitButton
+              className="w-full"
+              text="Sign up"
+              loadingText="Loading..."
+            />
             <StrapiErrors error={formState?.strapiErrors} />
           </CardFooter>
         </Card>
