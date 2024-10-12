@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { registerUserAction } from "@/data/actions/auth-action";
+import { registerUserAction } from "@/data/actions/auth-actions";
 import { useFormState } from "react-dom";
 
 import {
@@ -42,7 +42,7 @@ const INITIAL_FORM_STATE: FormState = {
 };
 
 export function SignupForm() {
-  const [formState, formAction] = useFormState(
+  const [formState, formAction] = useFormState<FormState, FormData>(
     registerUserAction,
     INITIAL_FORM_STATE
   );
