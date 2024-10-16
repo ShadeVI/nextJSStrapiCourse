@@ -555,6 +555,17 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.role'
     >;
     image: Schema.Attribute.Media<'images' | 'files'>;
+    firstName: Schema.Attribute.String;
+    lastName: Schema.Attribute.String;
+    bio: Schema.Attribute.Text;
+    credits: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

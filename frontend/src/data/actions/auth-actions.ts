@@ -1,6 +1,6 @@
 "use server"
 
-import { FormState } from "@/components/forms/sign-up-form"
+import { FormState } from "@/components/forms/SignUpForm"
 import { z } from "zod"
 import { loginUserService, registerUserService } from "../services/auth-service"
 import { cookies } from "next/headers"

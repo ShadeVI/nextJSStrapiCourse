@@ -66,12 +66,27 @@
       "configurable": false
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "text"
+    },
+    "credits": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
     }
   }
 }
