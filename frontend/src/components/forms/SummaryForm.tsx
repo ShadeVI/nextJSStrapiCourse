@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
+import { cn, extractYouTubeID } from "@/lib/utils";
 
 import { Input } from "@/components/ui/input";
 import { SubmitButton } from "@/components/custom/SubmitButton";
+import { generateSummaryService } from "@/data/services/summary-service";
 
 interface StrapiErrorsProps {
   message: string | null;
@@ -25,8 +26,47 @@ export function SummaryForm() {
   async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
+
+    const formData = new FormData(event.currentTarget);
+    const videoId = formData.get("videoId") as string;
+
+    const processedVideoId = extractYouTubeID(videoId);
+
+    if (!processedVideoId) {
+      toast.error("Invalid Youtube Video ID");
+      setLoading(false);
+      setValue("");
+      setError({
+        ...INITIAL_STATE,
+        message: "Invalid Youtube Video ID",
+        name: "Invalid Id",
+      });
+      return;
+    }
+
+    toast.info("Generating summary", {
+      description: `We are processing the video...`,
+      closeButton: true,
+    });
+
+    const summaryResponseData = await generateSummaryService(processedVideoId);
+
+    if (summaryResponseData.error) {
+      setValue("");
+      toast.error(summaryResponseData.error);
+      setError({
+        ...INITIAL_STATE,
+        message: summaryResponseData.error,
+        name: "Summary Error",
+      });
+      setLoading(false);
+      return;
+    }
+
+    console.log(summaryResponseData);
+
     toast.success("Summary Created", {
-      description: "Summary has been correctly created",
+      description: `Summary has been correctly created for the video with the ID: ${processedVideoId}`,
       closeButton: true,
     });
     setLoading(false);

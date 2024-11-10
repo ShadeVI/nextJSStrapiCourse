@@ -21,7 +21,7 @@ export interface UserData {
   credits: number;
 }
 
-interface ReturnType {
+interface UserType {
   ok: boolean,
   data: UserData | null,
   error: any
@@ -31,7 +31,7 @@ const query = qs.stringify({
   populate: { image: { fields: ["url", "alternativeText"] } },
 });
 
-export async function getUserMeLoader(): Promise<ReturnType> {
+export async function getUserMeLoader(): Promise<UserType> {
   const baseUrl = getStrapiURL();
 
   const url = new URL("/api/users/me", baseUrl);
