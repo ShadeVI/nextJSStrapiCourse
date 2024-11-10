@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/custom/Logo";
 import { getUserMeLoader, UserData } from "@/data/services/get-user-me-loader";
 import { LogoutButton } from "@/components/custom/LogoutButton";
+import { SummaryForm } from "../forms/SummaryForm";
 
 interface HeaderProps {
   data: {
@@ -26,6 +27,7 @@ export async function Header({ data }: Readonly<HeaderProps>) {
   return (
     <div className="flex items-center justify-between px-4 py-3 bg-white shadow-md dark:bg-gray-800">
       <Logo text={logoText.text} url={logoText.url} />
+      {userResponseData.ok && <SummaryForm />}
       <div className="flex items-center gap-4">
         {userResponseData.ok ? (
           <LoggedInUser userData={userResponseData.data!} />

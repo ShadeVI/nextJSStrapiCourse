@@ -4,8 +4,6 @@ import React from "react";
 
 import { cn } from "@/lib/utils";
 
-// import { uploadProfileImageAction } from "@/data/actions/profile-actions";
-
 import { SubmitButton } from "@/components/custom/SubmitButton";
 import ImagePicker from "@/components/custom/ImagePicker";
 import { ZodError } from "@/components/custom/ZodError";
