@@ -63,7 +63,7 @@ export function SummaryForm() {
       return;
     }
 
-    console.log(summaryResponseData);
+    //console.dir(summaryResponseData, { depth: null });
 
     toast.success("Summary Created", {
       description: `Summary has been correctly created for the video with the ID: ${processedVideoId}`,
