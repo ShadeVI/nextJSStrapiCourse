@@ -100,7 +100,7 @@ async function generateSummary(content: string, template: string) {
     //console.log(summary)
     //return summary;
     // SIMULATING RESPONSE
-    return "NICE DUMMY RESPONSE TEXT DUE TO API LIMITS"
+    return "NICE DUMMY RESPONSE TEXT DUE TO API LIMITS" + (Math.random() * 1000).toString()
   } catch (error) {
     if (error instanceof Error) {
       return new Response(JSON.stringify({ error: error.message }));

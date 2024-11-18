@@ -1,11 +1,12 @@
 import { getStrapiURL } from "@/lib/utils";
 import { unstable_noStore as noStore } from "next/cache"
 import qs from "qs";
+import { getAuthToken } from "./services/get-token";
 
 const baseUrl = getStrapiURL()
 
 export async function fetchData(url: string) {
-  const authToken = null; // we will implement this later getAuthToken() later
+  const authToken = await getAuthToken();
   const headers = {
     method: "GET",
     headers: {
@@ -78,4 +79,13 @@ export async function getGlobalData() {
     ]
   })
   return await fetchData(url.href)
+}
+
+export async function getSummaries() {
+  const url = new URL("/api/summaries", baseUrl);
+  return await fetchData(url.href);
+}
+
+export async function getSummaryById(summaryId: string) {
+  return fetchData(`${baseUrl}/api/summaries/${summaryId}`)
 }

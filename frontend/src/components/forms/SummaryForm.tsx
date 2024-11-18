@@ -7,6 +7,7 @@ import { cn, extractYouTubeID } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { SubmitButton } from "@/components/custom/SubmitButton";
 import { generateSummaryService } from "@/data/services/summary-service";
+import { createSummaryAction } from "@/data/actions/summary-actions";
 
 interface StrapiErrorsProps {
   message: string | null;
@@ -64,11 +65,35 @@ export function SummaryForm() {
     }
 
     //console.dir(summaryResponseData, { depth: null });
+    const payload = {
+      data: {
+        title: `Summary for video: ${processedVideoId}`,
+        videoId: processedVideoId,
+        summary: summaryResponseData.data,
+      },
+    };
 
-    toast.success("Summary Created", {
-      description: `Summary has been correctly created for the video with the ID: ${processedVideoId}`,
-      closeButton: true,
-    });
+    try {
+      await createSummaryAction(payload);
+      toast.success("Summary Created", {
+        description: `Summary has been correctly created for the video with the ID: ${processedVideoId}`,
+        closeButton: true,
+      });
+      // Reset form after successful creation
+      setValue("");
+      setError(INITIAL_STATE);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast.error("Error Creating Summary");
+      setError({
+        ...INITIAL_STATE,
+        message: "Error Creating Summary",
+        name: "Summary Error",
+      });
+      setLoading(false);
+      return;
+    }
+
     setLoading(false);
   }
 
