@@ -1,10 +1,6 @@
-import dynamic from "next/dynamic";
-
 import { extractYouTubeID } from "@/lib/utils";
 import { getSummaryById } from "@/data/loaders";
-const NoSSR = dynamic(() => import("@/components/custom/YoutubePlayer"), {
-  ssr: false,
-});
+import ClientYouTubePlayer from "@/components/custom/client-youtube-player";
 
 export default async function SummarySingleRoute({
   params,
@@ -13,7 +9,7 @@ export default async function SummarySingleRoute({
   readonly params: any;
   readonly children: React.ReactNode;
 }) {
-  const data = await getSummaryById(params.videoId);
+  const data = await getSummaryById(params.summaryId);
   if (data?.error?.status === 404) return <p>No Items Found</p>;
   const videoId = extractYouTubeID(data.data.videoId);
   return (
@@ -22,7 +18,7 @@ export default async function SummarySingleRoute({
         <div className="col-span-3">{children}</div>
         <div className="col-span-2">
           <div>
-            <NoSSR videoId={videoId} />
+            <ClientYouTubePlayer videoId={videoId} />
           </div>
         </div>
       </div>
