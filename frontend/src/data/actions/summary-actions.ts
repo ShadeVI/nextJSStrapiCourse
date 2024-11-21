@@ -60,9 +60,7 @@ export async function updateSummaryAction(prevState: any, formData: FormData) {
 }
 
 export async function deleteSummaryAction(id: string, prevState: any) {
-  console.log("ID DELETE: ", id)
   const responseData = await mutateData("DELETE", `/api/summaries/${id}`);
-  console.log("RESPONSE DELETE ACTION --> ", responseData)
 
   if (responseData)
 

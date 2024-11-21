@@ -6,7 +6,6 @@ export async function generateSummaryService(videoId: string) {
       body: JSON.stringify({ videoId: videoId }),
     });
     const resp = await response.json()
-    console.log(resp.error)
     if (resp.error) {
       return { data: null, error: { message: resp.error.message } }
     }

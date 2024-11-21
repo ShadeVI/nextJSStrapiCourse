@@ -11,6 +11,5 @@ export default async function SummaryCardRoute({
   params,
 }: Readonly<ParamsProps>) {
   const data = await getSummaryById(params.summaryId);
-  console.log(data);
   return <SummaryCardForm item={data.data} />;
 }

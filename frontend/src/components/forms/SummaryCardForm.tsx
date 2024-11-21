@@ -39,7 +39,6 @@ export function SummaryCardForm({
   readonly item: any;
   readonly className?: string;
 }) {
-  console.log(item);
   const deleteSummaryById = deleteSummaryAction.bind(null, item.documentId);
 
   const [deleteState, deleteAction] = useFormState(
